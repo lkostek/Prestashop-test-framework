@@ -1,7 +1,6 @@
 import logging
 import time
 
-from selenium import webdriver
 from selenium.common.exceptions import (ElementNotSelectableException,
                                         ElementNotVisibleException,
                                         NoSuchElementException)
@@ -77,7 +76,7 @@ class Core:
                 f'{type_of_locator} and locator: {locator}')
             return None
 
-    def getElementAndClick(self, type_of_locator, locator):
+    def getElementAndClick(self, locator, type_of_locator="xpath"):
         """Znajduje element lub przyjmuje element i klika go."""
 
         try:
@@ -107,7 +106,7 @@ class Core:
                 "FAILED TO CLICK on provided in parameter element."
             )
 
-    def getElementAndEnterText(self, type_of_locator, locator, text):
+    def getElementAndEnterText(self, locator, text, type_of_locator="xpath"):
         """Znajduje element i wpisuje w nim podany w parametrze tekst."""
 
         try:
@@ -134,7 +133,7 @@ class Core:
                 "FAILED TO SEND KEYS to element provided in parameter."
             )
 
-    def isElementPresent(self, type_of_locator, locator):
+    def isElementPresent(self, locator, type_of_locator="xpath"):
         """Zwraca bool czy element istnieje na stronie."""
         is_present = False
         try:
@@ -158,7 +157,7 @@ class Core:
             )
             return is_present
 
-    def isElementDisplayed(self, type_of_locator, locator):
+    def isElementDisplayed(self, locator, type_of_locator="xpath"):
         """Zwraca boolean czy element jest wyswietlany."""
 
         try:
@@ -198,7 +197,7 @@ class Core:
             self.log.error("FAILED TO BACK to previous page.")
 
     def explicitWaitForElement(
-            self, type_of_locator, locator, timeout=10, poll_frequency=0.5
+            self, locator, type_of_locator="xpath", timeout=10, poll_frequency=0.5
     ):
         """Zwraca element webDriverWait o podanych parametrach."""
 
@@ -290,7 +289,7 @@ class Core:
         except Exception:
             self.log.error("Not supported direction provided in parameter.")
 
-    def getElementAndScroll(self, type_of_locator, locator):
+    def getElementAndScroll(self, locator, type_of_locator="xpath"):
         """Scrolluje strone do wskazanego elementu"""
 
         try:
