@@ -61,6 +61,8 @@ class LoginPage(Core):
         self.getElementAndClick(locator=self.create_account_button_xpath)
 
     def performLogin(self, email, password):
+        """Wykonuje cala sekwencje metod do proby zalogowania sie."""
+
         self.clickLoginButton()
         self.clickShowPassword()
         self.enterEmail(email)
