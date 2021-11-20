@@ -1,5 +1,5 @@
 from base.core import Core
-from pages.login_page import LoginPage
+from pages.login.login_page import LoginPage
 
 
 class RegisterPage(Core):
@@ -120,13 +120,14 @@ class RegisterPage(Core):
 
         self.getElementAndClick(locator=self.submit_register_button_xpath)
 
-    def performRegister(self,
-                        first_name,
-                        last_name,
-                        email,
-                        password,
-                        birthday=None,
-                        ):
+    def performRegister(
+            self,
+            first_name,
+            last_name,
+            email,
+            password,
+            birthday=None
+    ):
         """
         Wykonuje cala sekwencje metod do proby zarejestrowania nowego konta.
         """
