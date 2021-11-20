@@ -68,3 +68,28 @@ class LoginPage(Core):
         self.enterEmail(email)
         self.enterPassword(password)
         self.clickSubmitLogin()
+
+    def ifLoginSuccessful(self):
+        """
+        Zweryfikuj czy uzytkownik zalogowal sie na konto poprawnie.
+        """
+
+        result = self.isElementPresent(
+            type_of_locator="xpath",
+            locator="//span[contains(text(),'Lukasz Kostek')]",
+        )
+
+        return result
+
+    def ifLoginFailed(self):
+        """
+        Zweryfikuj czy uzytkownik nie zalogowal sie na konto i dostal
+        komunikat o failed login.
+        """
+
+        result = self.isElementPresent(
+            type_of_locator="xpath",
+            locator="//li[@class='alert alert-danger']",
+        )
+
+        return result
