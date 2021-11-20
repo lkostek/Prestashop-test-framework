@@ -19,9 +19,9 @@ def loggerInstance(
     )
 
     # creating instance of file handler
-    file_name = datetime.datetime.now().strftime("%m-%d_%H-%M")
+    file_name = datetime.datetime.now().strftime("%m-%d %H-%M")
     file_handler = logging.FileHandler(
-        filename=f".\\logs\\selenium-webdriver_{file_name}.log", mode="a"
+        filename=f".\\logs\\selenium-webdriver {file_name}.log", mode="a"
     )
     file_handler.setLevel(file_level)
     file_handler.setFormatter(handler_format)
