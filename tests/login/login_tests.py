@@ -1,6 +1,9 @@
-from pages.login.login_page import LoginPage
 import unittest
+
 import pytest
+
+from pages.login.login_page import LoginPage
+
 
 @pytest.mark.usefixtures("setUpBeforeTest")
 class LoginTests(unittest.TestCase):
@@ -35,3 +38,7 @@ class LoginTests(unittest.TestCase):
             email="testowekonto@lukaszkostek.pl",
             password="Testowekonto1",
         )
+
+        excepted_result = True
+        result = self.login_page.ifLoginSuccessful()
+        assert result == excepted_result
