@@ -23,3 +23,15 @@ class LoginTests(unittest.TestCase):
         expected_result = True
         result = self.login_page.ifLoginFailed()
         assert result == expected_result
+
+    @pytest.mark.run(order=2)
+    def test_validLogin(self):
+        """
+        Test sprawdzajacy, czy po wpisaniu loginu i hasla do instniejacego
+        konta uzytkownik sie zaloguje i zostanie przeniesiony na strone glowna.
+        """
+
+        self.login_page.performLogin(
+            email="testowekonto@lukaszkostek.pl",
+            password="Testowekonto1",
+        )
