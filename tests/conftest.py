@@ -14,7 +14,7 @@ log = loggerInstance(console_level=logging.DEBUG)
 
 
 @pytest.fixture(scope="class")
-def setUp(request, browser="firefox", if_logged="false"):
+def setUpBeforeTest(request, browser="firefox", if_logged="false"):
     """
     Metoda uruchamia sie przy kazdej metodzie.
     Przyjmuje parametr browser, ktory weryfikuje na jakiej przegladarce
@@ -39,13 +39,12 @@ def setUp(request, browser="firefox", if_logged="false"):
         login = LoginPage(driver)
         login.performLogin(
             email='testowekonto@lukaszkostek.pl',
-            password='testowehaslo',
+            password='Testowekonto1',
         )  # TODO sprawdzic czy w ogole to dziala
 
-        if request.cls is not None:
-            request.cls.driver = driver
-        yield driver
-
+    if request.cls is not None:
+        request.cls.driver = driver
+    yield driver
 
 def pytest_addoption(parser):
     parser.addoption(
