@@ -93,3 +93,12 @@ class LoginPage(Core):
         )
 
         return result
+
+    def checkLoginTitle(self, title):
+        """
+        Zweryfikuj czy podany title is equals to current page title.
+        """
+
+        result = self.compareCurentTitlePageWithProvidedTitle(title)
+
+        return result
