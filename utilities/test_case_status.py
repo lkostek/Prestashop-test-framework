@@ -1,6 +1,8 @@
 import logging
-from utilities.logger import loggerInstance
+
 from base.core import Core
+from utilities.logger import loggerInstance
+
 
 class TestCaseStatus(Core):
     """
@@ -47,8 +49,8 @@ class TestCaseStatus(Core):
         if "FAILURE" in self.test_result_list:
             self.log.error(f"%%% TESTCASE {test_name} FAILURE")
             self.test_result_list.clear()
-            assert False == True
+            assert False == True # noqa E712
         else:
             self.log.info(f"%%% TESTCASE {test_name} PASSED")
             self.test_result_list.clear()
-            assert True == True
+            assert True == True # noqa E712

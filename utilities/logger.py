@@ -1,6 +1,7 @@
-import logging
-import inspect
 import datetime
+import inspect
+import logging
+
 
 def loggerInstance(
     file_level=logging.DEBUG, console_level=None, logger_level=logging.DEBUG
