@@ -38,13 +38,13 @@ def setUpBeforeTest(request, browser, if_logged):
         login.performLogin(
             email='testowekonto@lukaszkostek.pl',
             password='Testowekonto1',
-        )  # TODO sprawdzic czy w ogole to dziala
+        )
 
     if request.cls is not None:
         request.cls.driver = driver
     yield driver
 
-    driver.quit()# po wykonaniu kodu wylacz przegladarke
+    driver.quit()  # po wykonaniu kodu wylacz przegladarke
 
 
 def pytest_addoption(parser):
