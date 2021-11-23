@@ -187,6 +187,20 @@ class Core:
         self.log.info("Returning title of current page.")
         return self.driver.title
 
+    def compareCurentTitlePageWithProvidedTitle(self, title):
+        """
+        Zwraca wynik porownywania current title page z
+        wprowadzonym w parametrze title.
+        """
+
+        self.log.info(f"Comparing current page title with provided: {title}")
+        if self.getTitleOfCurrentPage() == title:
+            self.log.info(
+                "TITLES ARE EQUAL to each other.")
+            return True
+        self.log.error("TITLES ARE NOT EQUAL to each other.")
+        return False
+
     def backToPreviousPage(self):
         """Driver cofa sie do poprzedniej strony."""
 
@@ -197,7 +211,11 @@ class Core:
             self.log.error("FAILED TO BACK to previous page.")
 
     def explicitWaitForElement(
-            self, locator, type_of_locator="xpath", timeout=10, poll_frequency=0.5
+            self,
+            locator,
+            type_of_locator="xpath",
+            timeout=10,
+            poll_frequency=0.5,
     ):
         """Zwraca element webDriverWait o podanych parametrach."""
 
