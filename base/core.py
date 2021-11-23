@@ -197,7 +197,11 @@ class Core:
             self.log.error("FAILED TO BACK to previous page.")
 
     def explicitWaitForElement(
-            self, locator, type_of_locator="xpath", timeout=10, poll_frequency=0.5
+            self,
+            locator,
+            type_of_locator="xpath",
+            timeout=10,
+            poll_frequency=0.5,
     ):
         """Zwraca element webDriverWait o podanych parametrach."""
 
