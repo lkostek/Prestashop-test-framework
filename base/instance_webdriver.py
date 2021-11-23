@@ -1,5 +1,6 @@
 from selenium import webdriver
 
+
 class WebDriverInstance():
     """
     Klasa sluzy do tworzenia instancji webdrivera
