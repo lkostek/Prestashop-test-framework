@@ -6,21 +6,19 @@ from base.instance_webdriver import WebDriverInstance
 from pages.login.login_page import LoginPage
 from utilities.logger import loggerInstance
 
-# @pytest.fixture()
-# def setUp():
-#     None
-
 log = loggerInstance(console_level=logging.DEBUG)
 
 
-@pytest.fixture(scope="class")
-def setUpBeforeTest(request, browser="firefox", if_logged="false"):
+# zmienione na function zeby przy kazdym testcase sie wlacza
+# przegladarka i wylaczala na koncu
+@pytest.fixture(scope="function")
+def setUpBeforeTest(request, browser, if_logged):
     """
     Metoda uruchamia sie przy kazdej metodzie.
     Przyjmuje parametr browser, ktory weryfikuje na jakiej przegladarce
     ma sie test uruchomic.
-    Przyjmuje parametr if_logged: jezeli True to metoda na starcie poprawnie
-    loguje sie do testowanej strony.
+    Przyjmuje parametr if_logged: true/false - jezeli true to metoda na starcie
+    poprawnie loguje sie do testowanej strony.
     """
 
     log.info("### Running setUp method")
@@ -46,14 +44,17 @@ def setUpBeforeTest(request, browser="firefox", if_logged="false"):
         request.cls.driver = driver
     yield driver
 
+    driver.quit()# po wykonaniu kodu wylacz przegladarke
+
+
 def pytest_addoption(parser):
     parser.addoption(
         "--browser",
-        help="Choose browser: chrome/firefox, default firefox"
+        help="Choose browser: chrome/firefox"
     )
     parser.addoption(
         "--if_logged",
-        help="Auto login: true/false, default true"
+        help="Auto login: true/false"
     )
 
 
