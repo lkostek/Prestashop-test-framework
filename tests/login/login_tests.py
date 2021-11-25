@@ -19,7 +19,7 @@ class LoginTests(unittest.TestCase):
         """
         Test sprawdzajacy, czy po wpisaniu zlego loginu i hasla
         uzytkownik sie nie zaloguje i zostanie zwrocony komunikat
-        i wyswietla sie spodziewany title strony.
+        i porownuje wyswietlony title page z spodziewanym title.
         """
 
         self.login_page.performLogin(
@@ -27,20 +27,20 @@ class LoginTests(unittest.TestCase):
             password="niepoprawnehaslo",
         )
 
-        result1 = self.login_page.checkLoginTitle(title="Nazwa użytkowika")
-        # assert result1 == True
-        self.test_status.setResultOfTest(
-            test_result=result1,
+        test_result_1 = self.login_page.checkLoginTitle(
+            title="Nazwa użytkowika"
+        )
+        self.test_status.setTestResult(
+            test_result=test_result_1,
             result_message="Titles are equals to each other."
         )
 
-        result2 = self.login_page.ifLoginFailed()
-        self.test_status.finalTestResult(
-            test_result=result2,
+        test_result_2 = self.login_page.ifLoginFailed()
+        self.test_status.setFinalTestResult(
+            test_result=test_result_2,
             result_message="Attempt to login has failed.",
             test_name="test_invalidLogin"
         )
-        # assert result2 == expected_result
 
     @pytest.mark.run(order=2)
     def test_validLogin(self):
@@ -54,6 +54,15 @@ class LoginTests(unittest.TestCase):
             password="Testowekonto1",
         )
 
-        excepted_result = True
-        result = self.login_page.ifLoginSuccessful()
-        assert result == excepted_result
+        test_result_1 = self.login_page.checkLoginTitle('Moje konto')
+        self.test_status.setTestResult(
+            test_result=test_result_1,
+            result_message="Titles are equals to each other.",
+        )
+
+        test_result_2 = self.login_page.ifLoginSuccessful()
+        self.test_status.setFinalTestResult(
+            test_result=test_result_2,
+            result_message="Correctly performed login to site.",
+            test_name="test_validLogin",
+        )
