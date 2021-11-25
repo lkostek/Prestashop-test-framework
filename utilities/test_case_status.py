@@ -16,7 +16,7 @@ class TestCaseStatus(Core):
         super(TestCaseStatus, self).__init__(driver)
         self.test_result_list = []
 
-    def setResultOfTest(self, test_result, result_message):
+    def setTestResult(self, test_result, result_message):
         """
         Dodaje do test_result_list wynik czastkowy z testcase i wypluwa
         adekwatne logi.
@@ -37,14 +37,14 @@ class TestCaseStatus(Core):
             self.log.error("%%% SOMETHING WENT WRONG")
             self.test_result_list.append("FAILURE")
 
-    def finalTestResult(self, test_result, result_message, test_name):
+    def setFinalTestResult(self, test_result, result_message, test_name):
         """
         Obsluguje ostatni test w testcase i decyduje o
         tym, czy testcase jest fail czy pass.
         """
 
         #  dodanie ostaniego testu do test_result_list
-        self.setResultOfTest(test_result, result_message)
+        self.setTestResult(test_result, result_message)
 
         if "FAILURE" in self.test_result_list:
             self.log.error(f"%%% TESTCASE {test_name} FAILURE")
