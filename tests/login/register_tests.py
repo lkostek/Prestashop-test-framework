@@ -92,7 +92,7 @@ class RegisterTests(unittest.TestCase):
         )
 
 
-    def test_regitserInvalidBirthdayFormat(self):
+    def test_registerInvalidBirthdayFormat(self):
         """
             Test sprawdza, czy po wprowadzeniu nieprawidlowo sformatowana date
             urodzin przy wypelnianiu danych w formularzu rejestracji system
@@ -100,3 +100,34 @@ class RegisterTests(unittest.TestCase):
             Test sprawdza, czy po probie rejestracji bedzie nadal strona
             rejestracji.
         """
+
+        random_email_name = self.additional_functions.getRandomString(
+            length=5
+        )
+        random_password = self.additional_functions.getRandomString(
+            type_of_string='digits',
+            length=8,
+        )
+
+        self.register_page.performRegister(
+            first_name='Adam',
+            last_name='Testowy',
+            email=f'{random_email_name}@email.com',
+            password=f'{random_password}',
+            birthday='08-08-1998',
+        )
+
+        test_result_1 = self.register_page.checkRegisterTitle(
+            title='Nazwa użytkowika',
+        )
+        self.test_status.setTestResult(
+            test_result=test_result_1,
+            result_message="Titles are equals to each other.",
+        )
+
+        test_result_2 = self.register_page.ifDateOfBirthInvalid()
+        self.test_status.setFinalTestResult(
+            test_result=test_result_2,
+            result_message='Attempt to register failed',
+            test_name='test_registerInvalidBirthdayFormat',
+        )

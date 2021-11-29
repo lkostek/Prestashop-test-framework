@@ -48,6 +48,8 @@ class RegisterPage(Core):
     submit_register_button_xpath = "//button[@type='submit']"
     logout_button_xpath = '//a[@class="logout hidden-sm-down"]'
     error_email_xpath = "//li[@class='alert alert-danger']"
+    error_birthday_xpath = "//li[contains(text(),'Format " \
+                           "powinien być 1970-05-31.')]"
 
     def selectMaleCheckBox(self):
         """Klika w male checkbox."""
@@ -140,6 +142,10 @@ class RegisterPage(Core):
         """
 
         result = self.isElementPresent(locator=self.error_email_xpath)
+        return result
+
+    def ifDateOfBirthInvalid(self):
+        result = self.isElementPresent(locator=self.error_birthday_xpath)
         return result
 
     def checkRegisterTitle(self, title):
