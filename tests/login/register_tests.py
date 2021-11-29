@@ -54,8 +54,49 @@ class RegisterTests(unittest.TestCase):
             test_name='test_registerValid',
         )
 
-    # def test_registerExistingEmail(self):
-    #     None
-    #
-    # def test_regitserInvalidBirthdayFormat(self):
-    #     None
+    def test_registerExistingEmail(self):
+        """
+            Test sprawdza, czy po wprowadzeniu nieunikalnego maila przy
+            wypelnianiu danych w formularzu rejestracji system nie zarejestruje
+            uzytkownika i wyrzuci blad.
+            Test sprawdza, czy po probie rejestracji bedzie nadal strona
+            rejestracji.
+        """
+
+        random_password = self.additional_functions.getRandomString(
+            type_of_string='digits',
+            length=8,
+        )
+
+        self.register_page.performRegister(
+            first_name='Adam',
+            last_name='Testowy',
+            email='testowekonto@lukaszkostek.pl',
+            password=f'{random_password}',
+            birthday='1999-08-08',
+        )
+
+        test_result_1 = self.register_page.checkRegisterTitle(
+            title='Nazwa użytkowika',
+        )
+        self.test_status.setTestResult(
+            test_result=test_result_1,
+            result_message="Titles are equals to each other.",
+        )
+
+        test_result_2 = self.register_page.ifRegisterFailed()
+        self.test_status.setFinalTestResult(
+            test_result=test_result_2,
+            result_message='Attempt to register failed',
+            test_name='test_registerExistingEmail',
+        )
+
+
+    def test_regitserInvalidBirthdayFormat(self):
+        """
+            Test sprawdza, czy po wprowadzeniu nieprawidlowo sformatowana date
+            urodzin przy wypelnianiu danych w formularzu rejestracji system
+            nie zarejestruje uzytkownika i wyrzuci blad.
+            Test sprawdza, czy po probie rejestracji bedzie nadal strona
+            rejestracji.
+        """
