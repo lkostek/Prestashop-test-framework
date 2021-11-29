@@ -47,6 +47,7 @@ class RegisterPage(Core):
                                 "/div[1]/span[1]/label[1]/input[1]"
     submit_register_button_xpath = "//button[@type='submit']"
     logout_button_xpath = '//a[@class="logout hidden-sm-down"]'
+    error_email_xpath = "//li[@class='alert alert-danger']"
 
     def selectMaleCheckBox(self):
         """Klika w male checkbox."""
@@ -129,6 +130,16 @@ class RegisterPage(Core):
         """
 
         result = self.isElementPresent(locator=self.logout_button_xpath)
+        return result
+
+    def ifRegisterFailed(self):
+        """
+        Zwraca boolean czy element blad o istniejacym mailu w systemie jest
+        wyswietlony, co jest rownoznaczne z tym, ze proba rejestracji sie
+        nie powiodla.
+        """
+
+        result = self.isElementPresent(locator=self.error_email_xpath)
         return result
 
     def checkRegisterTitle(self, title):
