@@ -46,6 +46,7 @@ class RegisterPage(Core):
                                 "/form[@id='customer-form']/div/div[10]" \
                                 "/div[1]/span[1]/label[1]/input[1]"
     submit_register_button_xpath = "//button[@type='submit']"
+    logout_button_xpath = '//a[@class="logout hidden-sm-down"]'
 
     def selectMaleCheckBox(self):
         """Klika w male checkbox."""
@@ -84,12 +85,13 @@ class RegisterPage(Core):
             text=email
         )
 
-    def enterPassword(self, pasword):
+    def enterPassword(self, password):
         """Wpisuje text do password input."""
 
         self.getElementAndEnterText(
             type_of_locator="id",
-            locator=self.password_input_id
+            locator=self.password_input_id,
+            text=password,
         )
 
     def enterBirthday(self, birthday):
@@ -105,20 +107,38 @@ class RegisterPage(Core):
         """Klika w pierwszy checkbox."""
 
         self.getElementAndClick(
-            type_of_locator=self.required_checkbox_xpath
+            locator=self.required_checkbox_xpath
         )
 
     def clickRequiredCheckBox2(self):
         """Klika w pierwszy checkbox."""
 
         self.getElementAndClick(
-            type_of_locator=self.required_2_checkbox_xpath
+            locator=self.required_2_checkbox_xpath
         )
 
     def clickSubmitRegister(self):
         """Klika w submit register button."""
 
         self.getElementAndClick(locator=self.submit_register_button_xpath)
+
+    def ifRegisterSuccessful(self):
+        """
+        Zwraca boolean czy element Logout jest widoczny na stronie,
+        co jest rownoznaczne z tym, ze uzytkownik sie pomyslnie zarejestrowal.
+        """
+
+        result = self.isElementPresent(locator=self.logout_button_xpath)
+        return result
+
+    def checkRegisterTitle(self, title):
+        """
+        Zweryfikuj czy podany title is equals to current page title.
+        """
+
+        result = self.compareCurentTitlePageWithProvidedTitle(title)
+
+        return result
 
     def performRegister(
             self,
@@ -138,7 +158,7 @@ class RegisterPage(Core):
         self.enterFirstName(first_name=first_name)
         self.enterLastName(last_name=last_name)
         self.enterEmail(email=email)
-        self.enterPassword(pasword=password)
+        self.enterPassword(password=password)
         if birthday is not None:
             self.enterBirthday(birthday)
         self.clickRequiredCheckBox1()
