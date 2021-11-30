@@ -15,6 +15,7 @@ class RegisterTests(unittest.TestCase):
         self.test_status = TestCaseStatus(self.driver)
         self.additional_functions = AdditionalFunctions()
 
+    @pytest.mark.run(order=1)
     def test_registerValid(self):
         """
         Test sprawdza, czy po wprowadzeniu poprawnie wszystkich danych w
@@ -54,6 +55,7 @@ class RegisterTests(unittest.TestCase):
             test_name='test_registerValid',
         )
 
+    @pytest.mark.run(order=2)
     def test_registerExistingEmail(self):
         """
             Test sprawdza, czy po wprowadzeniu nieunikalnego maila przy
@@ -91,7 +93,7 @@ class RegisterTests(unittest.TestCase):
             test_name='test_registerExistingEmail',
         )
 
-
+    @pytest.mark.run(order=3)
     def test_registerInvalidBirthdayFormat(self):
         """
             Test sprawdza, czy po wprowadzeniu nieprawidlowo sformatowana date
