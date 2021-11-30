@@ -1,10 +1,10 @@
 import unittest
 
 import pytest
-
 from pages.login.register_page import RegisterPage
-from utilities.test_case_status import TestCaseStatus
 from utilities.additional_functions import AdditionalFunctions
+from utilities.test_case_status import TestCaseStatus
+
 
 @pytest.mark.usefixtures("setUpBeforeTest")
 class RegisterTests(unittest.TestCase):

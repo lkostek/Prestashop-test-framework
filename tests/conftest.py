@@ -1,7 +1,6 @@
 import logging
 
 import pytest
-
 from base.instance_webdriver import WebDriverInstance
 from pages.login.login_page import LoginPage
 from utilities.logger import loggerInstance
