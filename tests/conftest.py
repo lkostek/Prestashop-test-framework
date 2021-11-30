@@ -21,7 +21,7 @@ def setUpBeforeTest(request, browser, if_logged):
     poprawnie loguje sie do testowanej strony.
     """
 
-    log.info("### Running setUp method")
+    log.info("### Preparing for test")
     log.info(f"Tests will be executed in browser: {browser}")
     log.info("Creating webdriver instance")
     web_driver_instance = WebDriverInstance(browser)
