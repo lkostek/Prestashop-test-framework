@@ -25,16 +25,16 @@ class TestCaseStatus(Core):
         try:
             if test_result is not None:
                 if test_result is True:
-                    self.log.info(f"%%% TEST PASSED: {result_message}")
+                    self.log.info(f"%%%%% TEST PASSED: {result_message}")
                     self.test_result_list.append("PASSED")
                 else:
-                    self.log.error(f"%%% TEST FAILURE: {result_message}")
+                    self.log.error(f"%%%%% TEST FAILURE: {result_message}")
                     self.test_result_list.append("FAILURE")
             else:
-                self.log.error("%%% SOMETHING WENT WRONG")
+                self.log.error("%%%%% SOMETHING WENT WRONG")
                 self.test_result_list.append("FAILURE")
         except Exception:
-            self.log.error("%%% SOMETHING WENT WRONG")
+            self.log.error("%%%%% SOMETHING WENT WRONG")
             self.test_result_list.append("FAILURE")
 
     def setFinalTestResult(self, test_result, result_message, test_name):
@@ -47,10 +47,10 @@ class TestCaseStatus(Core):
         self.setTestResult(test_result, result_message)
 
         if "FAILURE" in self.test_result_list:
-            self.log.error(f"%%% TESTCASE {test_name} FAILURE")
+            self.log.error(f"%%%%%%%%% TESTCASE {test_name} FAILURE")
             self.test_result_list.clear()
             assert False == True # noqa E712
         else:
-            self.log.info(f"%%% TESTCASE {test_name} PASSED")
+            self.log.info(f"%%%%%%%%% TESTCASE {test_name} PASSED")
             self.test_result_list.clear()
             assert True == True # noqa E712
