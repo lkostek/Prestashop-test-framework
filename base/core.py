@@ -320,3 +320,16 @@ class Core:
         except Exception:
             self.log.error(f"FAILED TO SCROLL to element with locator type: "
                            f"{type_of_locator} and locator: {locator}")
+
+    def getElementAndGetTextFromElement(self, locator, type_of_locator="xpath"):
+        """Zwraca tekst ktory element contains."""
+
+        try:
+            element = self.getElement(type_of_locator, locator)
+            self.log.info("Trying to get text from element.")
+            text_from_element = element.text
+            self.log.info(f"Text from element: {text_from_element}")
+            return text_from_element
+        except Exception:
+            self.log.error("FAILED TO TAKE TEXT from element")
+
