@@ -5,6 +5,7 @@ from selenium.common.exceptions import (ElementNotSelectableException,
                                         ElementNotVisibleException,
                                         NoSuchElementException)
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -106,7 +107,13 @@ class Core:
                 "FAILED TO CLICK on provided in parameter element."
             )
 
-    def getElementAndEnterText(self, locator, text, type_of_locator="xpath"):
+    def getElementAndEnterText(
+            self,
+            locator,
+            text,
+            type_of_locator="xpath",
+            pressEnter=False
+    ):
         """Znajduje element i wpisuje w nim podany w parametrze tekst."""
 
         try:
@@ -116,6 +123,10 @@ class Core:
                 f"SENT KEYS to element with locator type: "
                 f"{type_of_locator} and locator: {locator}"
             )
+
+            if pressEnter:
+                self.log.info(f'pressEnter:{pressEnter} - pressing enter key.')
+                element.send_keys(Keys.ENTER)
         except Exception:
             self.log.error(
                 f"FAILED TO SEND KEYS to element with locator type: "
@@ -321,7 +332,11 @@ class Core:
             self.log.error(f"FAILED TO SCROLL to element with locator type: "
                            f"{type_of_locator} and locator: {locator}")
 
-    def getElementAndGetTextFromElement(self, locator, type_of_locator="xpath"):
+    def getElementAndGetTextFromElement(
+            self,
+            locator,
+            type_of_locator="xpath"
+    ):
         """Zwraca tekst ktory element contains."""
 
         try:
@@ -333,3 +348,16 @@ class Core:
         except Exception:
             self.log.error("FAILED TO TAKE TEXT from element")
 
+    def clickOnElementsFromList(self, locator, type_of_locator="xpath"):
+        """
+        Pobiera liste elementow i klika w kazdego po kolei.
+        """
+
+        try:
+            self.log.info("Performing clicking on all elements from the list.")
+            elements = self.getElements(type_of_locator, locator)
+            for element in elements:
+                self.clickOnElement(element)
+        except Exception:
+            self.log.error("FAILED TO PERFORM CLICKING on "
+                           "all elements from the list.")
