@@ -6,9 +6,12 @@ class BasketPage(Core):
     Manipuluje elementami na stronie glownej i koszyku
     w celu wykorzystania ich w testach.
 
-    -dodanie pierwszego produktu ze strony glownej do koszyka, sprawdzenie czy jest w koszyku
-    -wyszukaj konkretny produkt w wyszukiwarce, dodaj do koszyka i sprawdz czy jest w koszyku
-    -wejscie do koszyka i wszystkich produktow z koszyka, sprawdzenie czy jest w koszyku
+    -dodanie pierwszego produktu ze strony glownej do koszyka,
+    sprawdzenie czy jest w koszyku
+    -wyszukaj konkretny produkt w wyszukiwarce, dodaj do koszyka
+    i sprawdz czy jest w koszyku
+    -wejscie do koszyka i wszystkich produktow z koszyka,
+    sprawdzenie czy jest w koszyku
     """
 
     def __init__(self, driver):
@@ -17,17 +20,18 @@ class BasketPage(Core):
 
     # Locators
     home_page_button_xpath = "//img[@class='logo img-responsive']"
-    select_product_home_button_xpath = "//div[@class='products row']//div[@class=" \
-                                  "'product']//article[@class='product-minia" \
-                                  "ture js-product-miniature']//div[@class=" \
-                                  "'thumbnail-container reviews-loaded']//" \
-                                  "div[@class='product-description']//h3" \
-                                  "[@class='h3 product-title']//a[contains" \
-                                  "(text(),'Hummingbird printed t-shirt')]"
+    select_product_home_button_xpath = "//div[@class='products row']//div[@" \
+                                       "class='product']//article[@class='" \
+                                       "product-miniature js-product-mini" \
+                                       "ature']//div[@class='thumbnail-con" \
+                                       "tainer reviews-loaded']//div[@class" \
+                                       "='product-description']//h3[@class='" \
+                                       "h3 product-title']//a[contains(text" \
+                                       "(),'Hummingbird printed t-shirt')]"
     add_to_basket_button_xpath = "//body[@id='product']/main/section[@id=" \
                                  "'wrapper']/div[@class='container']/div" \
-                                 "[@id='content-wrapper']/section[@id='main']" \
-                                 "/div[@class='row product-container js-pr" \
+                                 "[@id='content-wrapper']/section[@id='main'" \
+                                 "]/div[@class='row product-container js-pr" \
                                  "oduct-container']/div[@class='col-md-6']/" \
                                  "div[@class='product-information']/div[@cl" \
                                  "ass='product-actions js-product-actions']/" \
@@ -38,14 +42,20 @@ class BasketPage(Core):
     basket_button_xpath = "//span[contains(text(),'Koszyk')]"
     product_name_home_xpath = "//h1[@class='h1']"
     product_name_home_in_basket_xpath = "//a[contains(text()," \
-                                   "'Hummingbird printed t-shirt')]"
+                                        "'Hummingbird printed t-shirt')]"
     trash_button_xpath = "//i[@class='material-icons float-xs-left']"
-    search_input_xpath = "//form[@method='get']//input[@type='text']" # input "nike", pamietaj zeby wcisnac enter
-    product_name_nike_in_basket_xpath = "//a[contains(text(),'Nike Air Max 270')]"
-    basket_popup_button_xpath = "//a[contains(text(),'Przejdź do realizacji zamówienia')]"
+    search_input_xpath = "//form[@method='get']//input[@type='text']"
+    select_product_nike_button_xpath = "//a[contains(text(),'Nike Air Max " \
+                                       "270')]"
+    basket_popup_button_xpath = "//a[contains(text(),'Przejdź do realizacji" \
+                                " zamówienia')]"
+    basket_empty_string_xpath = "//span[@class='no-items']"
 
     def clickBasketPopUpButton(self):
-        """Klika w basket button kiedy wyskoczy pop-up."""
+        """
+        Klika w basket button ktory znajduje sie na
+        pop-up kiedy dodamy produkt do koszyka.
+        """
 
         self.explicitWaitForElement(
             locator=self.basket_popup_button_xpath,
@@ -62,6 +72,10 @@ class BasketPage(Core):
 
         self.getElementAndClick(locator=self.select_product_home_button_xpath)
 
+    def clickProductNikeFromSearchBox(self):
+        """Klika w produkt Nike."""
+        self.getElementAndClick(locator=self.select_product_nike_button_xpath)
+
     def clickAddToBasketButton(self):
         """Klika w basket button na selected product page."""
 
@@ -73,7 +87,7 @@ class BasketPage(Core):
         self.getElementAndClick(locator=self.basket_button_xpath)
 
     def getNameOfProductInProductPage(self):
-        """Zwraca nazwe produktu home z product page."""
+        """Zwraca nazwe produktu z product page."""
 
         return self.getElementAndGetTextFromElement(
             locator=self.product_name_home_xpath
@@ -83,20 +97,33 @@ class BasketPage(Core):
         """Zwraca nazwe produktu Nike w basket page."""
 
         return self.getElementAndGetTextFromElement(
-            locator=self.product_name_nike_in_basket_xpath
+            locator=self.select_product_nike_button_xpath
         )
 
     def getNameOfProductHomeInBasket(self):
-        """Zwraca nazwe produktu pierwszego w basket page."""
+        """Zwraca nazwe produktu z home w basket page."""
 
         return self.getElementAndGetTextFromElement(
             locator=self.product_name_home_in_basket_xpath
         )
 
+    def inputProductNameToSearchBox(self, text):
+        """
+        Wprowadza text do searchboxa.
+        """
+
+        self.getElementAndEnterText(
+            locator=self.search_input_xpath,
+            text=text,
+            pressEnter=True
+        )
+
     def removeProductsFromBasket(self):
         """Usuwa wszystkie produkty z koszyka."""
 
-        # TODO stworzyc funkcje ktora usuwa wszystkie elementy z koszyka
+        self.clickOnElementsFromList(
+            locator=self.trash_button_xpath
+        )
 
     def checkBasketTitle(self, title):
         """
@@ -122,3 +149,32 @@ class BasketPage(Core):
         """
 
         self.clickBasketPopUpButton()
+
+    def performAddProductFromSearchPageToBasket(self, text):
+        """
+        Wpisuje w searchbox nazwe produktu wyszukuje go, wchodzi na strone
+        tego produktu i dodaje go do koszyka.
+        """
+
+        self.clickHomePageButton()
+        self.inputProductNameToSearchBox(text)
+        self.clickProductNikeFromSearchBox()
+        self.clickAddToBasketButton()
+
+    def performRemoveAllProductsFromBasket(self):
+        """
+        Wchodzi do koszyka i usuwa wszystkie produkty z koszyka.
+        """
+
+        self.clickHomePageButton()
+        self.clickBasketButton()
+        self.removeProductsFromBasket()
+
+    def isBacketEmpty(self):
+        """
+        Zwraca boolean czy koszyk jest pusty (pojawil sie napis).
+        """
+
+        return self.isElementPresent(
+            locator=self.basket_empty_string_xpath,
+        )
