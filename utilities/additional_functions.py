@@ -37,3 +37,21 @@ class AdditionalFunctions:
 
         self.log.info("Generating string...")
         return self.generateRandomString(type_of_string, length)
+
+    def compareTwoStrings(self, string1, string2):
+        """
+        Zwraca boolean porownania dwoch stringow
+        """
+
+        result = string1.lower() == string2.lower()
+        self.log.info(f"Returning result of compare: {result}")
+        return result
+
+    def getResultOfCompareStrings(self, string1, string2):
+        """
+        Uzywa funkcji compareTwoStrings po to aby
+        zwrocic boolean porownania stringow
+        """
+
+        self.log.info(f"Comparing strings: {string1} and {string2}")
+        return self.compareTwoStrings(string1, string2)
