@@ -108,3 +108,18 @@ class BasketTests(unittest.TestCase):
             test_name="test_removeProductsFromBasket",
             result_message="ALl products are removed from the basket.",
         )
+
+    @pytest.mark.run(order=4)
+    def test_tryToOpenBasketWhenIsEmpty(self):
+        """
+        Test sprawdza, czy kiedy koszyk jest
+        pusty to nie da sie w niego kliknac.
+        """
+
+        self.basket_page.performOpenBasketWhenIsEmpty()
+        test_result_1 = self.basket_page.checkBasketTitle('Sklep internetowy')
+        self.test_status.setFinalTestResult(
+            test_result=test_result_1,
+            result_message="Basket didn't open.",
+            test_name="test_tryToOpenBasketWhenIsEmpty",
+        )

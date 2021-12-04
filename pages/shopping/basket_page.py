@@ -74,6 +74,7 @@ class BasketPage(Core):
 
     def clickProductNikeFromSearchBox(self):
         """Klika w produkt Nike."""
+
         self.getElementAndClick(locator=self.select_product_nike_button_xpath)
 
     def clickAddToBasketButton(self):
@@ -169,6 +170,14 @@ class BasketPage(Core):
         self.clickHomePageButton()
         self.clickBasketButton()
         self.removeProductsFromBasket()
+
+    def performOpenBasketWhenIsEmpty(self):
+        """
+        Probuje wejsc do koszyka kiedy jest pusty.
+        """
+
+        self.clickHomePageButton()
+        self.clickBasketButton()
 
     def isBacketEmpty(self):
         """
