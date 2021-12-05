@@ -1,3 +1,5 @@
+import time
+
 from base.core import Core
 
 class ProductPage(Core):
@@ -15,8 +17,12 @@ class ProductPage(Core):
     search_input_xpath = "//form[@method='get']//input[@type='text']"
     select_product_nike_button_xpath = "//a[contains(text(),'Nike Air Max " \
                                        "270')]"
-    add_review_button_xpath = "//button[@class='btn btn-comment " \
-                               "btn-comment-big post-product-comment']"
+    add_review_button_xpath = "//body[@id='product']/main/section[" \
+                              "@id='wrapper']/div[@class='container'" \
+                              "]/div[@id='content-wrapper']/section[" \
+                              "@id='main']/div[@class='row']/div[@id" \
+                              "='product-comments-list-footer']/butt" \
+                              "on[1]"
     title_comment_input_xpath = "//div[@class='col-md-12 col-sm-12']" \
                                 "//input[@type='text']"
     review_comment_input_xpath = "//textarea[@name='comment_content']"
@@ -32,17 +38,29 @@ class ProductPage(Core):
                               "s='grade-stars']/div[@class='star-content sta" \
                               "r-full clearfix']/div[5]"
     send_review_button_xpath = "//button[contains(text(),'Wyślij')]"
-    cancel_review_button_xpath = "//div[@class='col-md-6 col-sm-6 post-c" \
-                                 "omment-buttons']//button[@type='button" \
-                                 "'][contains(text(),'Anuluj')]"
+    cancel_review_button_xpath = "//div[@class='col-md-6 col-sm-6 post-comme" \
+                                 "nt-buttons']//button[@type='button'][cont" \
+                                 "ains(text(),'Anuluj')]"
     confirm_popup_button_xpath = "//div[@id='product-comment-posted-modal']" \
-                                 "//div[contains(@class,'modal-dialog')]" \
-                                 "//div[contains(@class,'modal-content')]" \
-                                 "//div[contains(@class,'modal-body')]" \
-                                 "//div[contains(@class,'row')]//div[co" \
-                                 "ntains(@class,'col-sm-12 post-comment-" \
-                                 "buttons')]//button[@type='button'][cont" \
-                                 "ains(text(),'Tak')]"
+                                 "//div[contains(@class,'modal-dialog')]//" \
+                                 "div[contains(@class,'modal-content')]//d" \
+                                 "iv[contains(@class,'modal-body')]//div[co" \
+                                 "ntains(@class,'row')]//div[contains(@cla" \
+                                 "ss,'col-sm-12 post-comment-buttons')]//b" \
+                                 "utton[contains(@type,'button')][contains" \
+                                 "(text(),'Tak')]"
+    review_popup_xpath = "//div[@id='post-product-comment-modal']//div[@" \
+                         "class='modal-dialog']//div[@class='modal-content']"
+    select_product_home_button_xpath = "//div[@class='products row']//div[@" \
+                                       "class='product']//article[@class='" \
+                                       "product-miniature js-product-mini" \
+                                       "ature']//div[@class='thumbnail-con" \
+                                       "tainer reviews-loaded']//div[@class" \
+                                       "='product-description']//h3[@class='" \
+                                       "h3 product-title']//a[contains(text" \
+                                       "(),'Hummingbird printed t-shirt')]"
+    add_first_review_button_xpath = "//button[@class='btn btn-comment btn-comment" \
+                             "-big post-product-comment']"
 
     def clickHomePageButton(self):
         """Klika w website logo button ktore przenosi do Home page."""
@@ -130,7 +148,9 @@ class ProductPage(Core):
         """
         Klika w confirm button na popup po wyslaniu review.
         """
-
+        self.explicitWaitForElement(
+            locator=self.confirm_popup_button_xpath
+        )
         self.getElementAndClick(
             locator=self.confirm_popup_button_xpath,
         )
@@ -148,6 +168,7 @@ class ProductPage(Core):
         self.clickHomePageButton()
         self.inputProductNameToSearchBox(product_name)
         self.clickProductNikeFromSearchBox()
+        time.sleep(2)
         self.scrollDownOnProductPage()
         self.clickAddReviewButton()
         self.clickFiveStarButton()
@@ -159,3 +180,103 @@ class ProductPage(Core):
         )
         self.clickSendReviewButton()
         self.clickConfirmPopup()
+        time.sleep(3)
+
+    def refreshPage(self):
+        """
+        Odswieza strone na ktorej jest aktualnie driver.
+        """
+
+        self.refreshCurrentPage()
+
+    def waitForTheElement(self, locator, time=10):
+        """
+        Czeka na pojawienie sie elementu do 10 sekund.
+        """
+
+        self.explicitWaitForElement(locator=locator, timeout=time)
+
+    def ifElementIsPresent(self, locator):
+        """
+        Zwraca boolean czy element znajduje sie na stronie.
+        """
+
+        return self.isElementPresent(locator=locator)
+
+    def verifyIfTitleIsPresent(self, title):
+        """
+        Metoda weryfikuje czy na stronie znajduje
+        sie expected title element i zwraca boolean.
+        """
+
+        expected_title_xpath = f"//h4[contains(text(),'{title}')]"
+        self.waitForTheElement(locator=expected_title_xpath)
+        return self.ifElementIsPresent(locator=expected_title_xpath)
+
+    def verifyIfCommentIsPresent(self, comment):
+        """
+        Metoda weryfikuje czy na stronie znajduje
+        sie expected comment element i zwraca boolean.
+        """
+
+        expected_comment_xpath = f"//p[contains(text(),'{comment}')]"
+        self.waitForTheElement(locator=expected_comment_xpath)
+        return self.ifElementIsPresent(locator=expected_comment_xpath)
+
+    def waitForCancelButton(self):
+        """
+        Czeka do max 5 sekund na pojawienie sie cancel button.
+        """
+
+        self.explicitWaitForElement(
+            locator=self.cancel_review_button_xpath,
+            timeout=5,
+        )
+
+    def clickProductFromHomePage(self):
+        """Klika w first product na home page."""
+
+        self.getElementAndClick(locator=self.select_product_home_button_xpath)
+
+    def clickAddFirstReviewButton(self):
+        """Klika w guzik ktory wywoluje review popup."""
+
+        self.getElementAndClick(
+            locator=self.add_first_review_button_xpath,
+        )
+
+    def performAddCommentToProductWithoutTitle(
+            self,
+            review_title,
+            review_comment
+    ):
+        """
+        Wykonuje cala sekwencje dodania komentarza produktu Nike.
+        """
+
+        self.clickHomePageButton()
+        self.clickProductFromHomePage()
+        time.sleep(2)
+        self.scrollDownOnProductPage()
+        self.clickAddFirstReviewButton()
+        self.clickFiveStarButton()
+        self.inputTextToTitleInput(
+            text=review_title,
+        )
+        self.inputTextToCommentInput(
+            text=review_comment,
+        )
+        self.clickSendReviewButton()
+        self.waitForCancelButton()
+        self.clickCancelSendReviewButton()
+        time.sleep(3)
+
+    def verifyIfReviewWithoutTitleIsPresent(self, comment):
+        """
+        Metoda weryfikuje czy na stronie znajduje
+        sie expected comment element i zwraca boolean.
+        """
+
+        comment_xpath = f"//p[contains(text(),'{comment}')]"
+        self.waitForTheElement(locator=comment_xpath, time=4)
+        return self.isElementNotPresent(locator=comment_xpath)
