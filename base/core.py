@@ -144,6 +144,18 @@ class Core:
                 "FAILED TO SEND KEYS to element provided in parameter."
             )
 
+    def isElementNotPresent(self, locator, type_of_locator="xpath"):
+        """
+        Zwraca bool czy elementu nie ma na
+        stronie. Odwrotnosc isElementPresent.
+        """
+
+        result = self.isElementPresent(locator, type_of_locator="xpath")
+
+        if result:
+            return False
+        return True
+
     def isElementPresent(self, locator, type_of_locator="xpath"):
         """Zwraca bool czy element istnieje na stronie."""
         is_present = False
@@ -309,8 +321,8 @@ class Core:
         """
 
         dict = {
-            "up": self.driver.execute_script("window.scrollBy(0, -1000);"),
-            "down": self.driver.execute_script("window.scrollBy(0, 1000);"),
+            "up": self.driver.execute_script("window.scrollBy(0, -9999);"),
+            "down": self.driver.execute_script("window.scrollBy(0, 9999);"),
         }
         try:
             dict.get(f'{direction}')
@@ -361,3 +373,11 @@ class Core:
         except Exception:
             self.log.error("FAILED TO PERFORM CLICKING on "
                            "all elements from the list.")
+
+    def refreshCurrentPage(self):
+        """
+        Refreshing the current page.
+        """
+
+        self.log.info("Refreshing current page.")
+        self.driver.refresh()
