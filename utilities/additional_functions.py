@@ -30,7 +30,7 @@ class AdditionalFunctions:
 
         return generated_string
 
-    def getRandomString(self, type_of_string="digits_letters", length="6"):
+    def getRandomString(self, type_of_string="digits_letters", length=6):
         """
         Uzywa funkcji generateRandomString po to aby zwrocic random string
         """
