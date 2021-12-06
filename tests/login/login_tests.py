@@ -1,6 +1,7 @@
 import unittest
 
 import pytest
+
 from pages.login.login_page import LoginPage
 from utilities.test_case_status import TestCaseStatus
 

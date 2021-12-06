@@ -1,6 +1,7 @@
 import unittest
 
 import pytest
+
 from pages.login.register_page import RegisterPage
 from utilities.additional_functions import AdditionalFunctions
 from utilities.test_case_status import TestCaseStatus

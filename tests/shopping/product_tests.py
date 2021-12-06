@@ -1,8 +1,11 @@
 import unittest
+
 import pytest
+
 from pages.shopping.product_page import ProductPage
 from utilities.additional_functions import AdditionalFunctions
 from utilities.test_case_status import TestCaseStatus
+
 
 @pytest.mark.usefixtures("setUpBeforeTest")
 class ProductTests(unittest.TestCase):
@@ -57,7 +60,6 @@ class ProductTests(unittest.TestCase):
         comment = f'Comment {self.additional_functions.getRandomString()}'
         title = ''
         self.product_page.performAddCommentToProductWithoutTitle(
-            product_name='nike',
             review_comment=comment,
             review_title=title
         )

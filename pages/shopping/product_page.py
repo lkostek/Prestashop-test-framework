@@ -2,6 +2,7 @@ import time
 
 from base.core import Core
 
+
 class ProductPage(Core):
     """
     Manipuluje elementami na stronie glownej i koszyku
@@ -59,8 +60,8 @@ class ProductPage(Core):
                                        "='product-description']//h3[@class='" \
                                        "h3 product-title']//a[contains(text" \
                                        "(),'Hummingbird printed t-shirt')]"
-    add_first_review_button_xpath = "//button[@class='btn btn-comment btn-comment" \
-                             "-big post-product-comment']"
+    add_first_review_button_xpath = "//button[@class='btn btn-comment btn-co" \
+                                    "mment-big post-product-comment']"
 
     def clickHomePageButton(self):
         """Klika w website logo button ktore przenosi do Home page."""
