@@ -36,6 +36,9 @@ class PurchasePage(Core):
     agree_rules_checkbox_xpath = "//input[@id='conditions_to_approve[terms-a" \
                                  "nd-conditions]']"
     submit_order_button_xpath = "//button[contains(text(),'Złóż zamówienie')]"
+    order_confirmed_string_xpath = "//span[contains(text(),'Nike Air Max 270')]"
+    product_confirmed_string_xpath = "//p[contains(text(),'Twoje zamówienie" \
+                                     " na Sklep internetowy jest gotowe.')]"
 
     def clickGoToPurchasePage(self):
         """
@@ -94,7 +97,54 @@ class PurchasePage(Core):
             locator=self.agree_rules_checkbox_xpath
         )
 
+    def clickSubmitOrderButton(self):
+        """
+        Klika w przycisk "Zloz zamowienie".
+        """
+
+        return self.getElementAndClick(
+            locator=self.submit_order_button_xpath
+        )
+
     def performPurchase(self, text):
         """
         Wykonuje cala sekwencje zakupu produktu Nike.
         """
+
+        self.basket_page.performAddProductFromSearchPageToBasket(text)
+        self.basket_page.clickBasketPopUpButton()
+        self.clickGoToPurchasePage()
+        self.clickAddressFurtherButton()
+        self.clickDeliveryMethodRadio()
+        self.clickDeliveryMethodFurtherButton()
+        self.clickOnlineTransferRadio()
+        self.clickOnlineTransferRadio()
+        self.clickAcceptRulesCheckbox()
+        self.clickSubmitOrderButton()
+
+    def ifOrderedProductStringIsDisplayed(self):
+        """
+        Sprawdza czy wyswietla sie na stronie nazwa zamowionego produktu.
+        """
+
+        return self.isElementDisplayed(
+            locator=self.order_confirmed_string_xpath,
+        )
+
+    def ifTitleIsOrderConfirmation(self, text):
+        """
+        Weryfikuje czy nazwa strony to "potwierdzenie zamowienia".
+        """
+
+        return self.compareCurentTitlePageWithProvidedTitle(
+            title=text,
+        )
+
+    def ifOrderConfirmationIsDisplayed(self):
+        """
+        Sprawdza czy wyswietla sie strona potwierdzajaca zamowienie.
+        """
+
+        return self.isElementDisplayed(
+            locator=self.product_confirmed_string_xpath,
+        )
