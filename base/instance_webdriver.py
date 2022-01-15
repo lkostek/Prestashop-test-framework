@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 
 class WebDriverInstance():
@@ -13,23 +14,15 @@ class WebDriverInstance():
     def getWebDriverInstance(self, time_seconds=3):
         """Tworzy instancje webdrivera."""
 
-        if self.browser == "firefox":
-            driver = webdriver.Firefox(
-                executable_path="D:\\Studia\\pracownia-dyplomowa\\"
-                                "projekt-inzynierka\\libs\\geckodriver\\"
-                                "geckodriver.exe"
-            )
-        elif self.browser == "chrome":
+        if self.browser == "chrome":
             driver = webdriver.Chrome(
-                executable_path="D:\\Studia\\pracownia-dyplomowa\\"
-                                "projekt-inzynierka\\libs\\chromedriver95\\"
-                                "chromedriver.exe"
+                service=Service(".\\libs\\chromedriver97\\"
+                                "chromedriver.exe")
             )
         else:
             driver = webdriver.Firefox(
-                executable_path="D:\\Studia\\pracownia-dyplomowa\\"
-                                "projekt-inzynierka\\libs\\geckodriver\\"
-                                "geckodriver.exe"
+                service=Service(".\\libs\\geckodriver\\"
+                                "geckodriver.exe")
             )
 
         driver.maximize_window()

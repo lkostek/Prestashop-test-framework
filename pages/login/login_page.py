@@ -71,7 +71,7 @@ class LoginPage(Core):
 
     def ifLoginSuccessful(self):
         """
-        Zweryfikuj czy uzytkownik zalogowal sie na konto poprawnie.
+        Weryfikuje czy uzytkownik zalogowal sie na konto poprawnie.
         """
 
         result = self.isElementPresent(
@@ -83,8 +83,8 @@ class LoginPage(Core):
 
     def ifLoginFailed(self):
         """
-        Zweryfikuj czy uzytkownik nie zalogowal sie na konto i dostal
-        komunikat o failed login.
+        Weryfikuje czy uzytkownik nie zalogowal sie na konto i dostal
+        komunikat o niepomyslnej probie zalogowania.
         """
 
         result = self.isElementPresent(
@@ -96,7 +96,8 @@ class LoginPage(Core):
 
     def checkLoginTitle(self, title):
         """
-        Zweryfikuj czy podany title is equals to current page title.
+        Weryfikuje czy podany title jest taki sam jak tytul strony
+        na ktorej aktualnie znajduje sie webdriver.
         """
 
         result = self.compareCurentTitlePageWithProvidedTitle(title)

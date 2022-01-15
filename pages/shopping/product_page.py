@@ -207,7 +207,7 @@ class ProductPage(Core):
     def verifyIfTitleIsPresent(self, title):
         """
         Metoda weryfikuje czy na stronie znajduje
-        sie expected title element i zwraca boolean.
+        sie spodziewany tytul komentarza i zwraca boolean.
         """
 
         expected_title_xpath = f"//h4[contains(text(),'{title}')]"
@@ -217,7 +217,7 @@ class ProductPage(Core):
     def verifyIfCommentIsPresent(self, comment):
         """
         Metoda weryfikuje czy na stronie znajduje
-        sie expected comment element i zwraca boolean.
+        sie spodziewany komentarz i zwraca boolean.
         """
 
         expected_comment_xpath = f"//p[contains(text(),'{comment}')]"
@@ -275,7 +275,7 @@ class ProductPage(Core):
     def verifyIfReviewWithoutTitleIsPresent(self, comment):
         """
         Metoda weryfikuje czy na stronie znajduje
-        sie expected comment element i zwraca boolean.
+        sie spodziewana tresc komentarza i zwraca boolean.
         """
 
         comment_xpath = f"//p[contains(text(),'{comment}')]"

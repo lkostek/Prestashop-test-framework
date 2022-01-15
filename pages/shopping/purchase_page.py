@@ -1,7 +1,6 @@
-import time
-
 from base.core import Core
 from pages.shopping.basket_page import BasketPage
+
 
 class PurchasePage(Core):
     """
@@ -11,7 +10,7 @@ class PurchasePage(Core):
 
     def __init__(self, driver):
         self.driver = driver
-        self.basket_page = BasketPage(driver) # albo tu albo nizej
+        self.basket_page = BasketPage(driver)
         super().__init__(driver)
 
     # Locators
@@ -36,7 +35,7 @@ class PurchasePage(Core):
     agree_rules_checkbox_xpath = "//input[@id='conditions_to_approve[terms-a" \
                                  "nd-conditions]']"
     submit_order_button_xpath = "//button[contains(text(),'Złóż zamówienie')]"
-    order_confirmed_string_xpath = "//span[contains(text(),'Nike Air Max 270')]"
+    order_confirmed_string_xpath = "//span[contains(text(),'Nike Air Max 270')]" # noqa E501
     product_confirmed_string_xpath = "//p[contains(text(),'Twoje zamówienie" \
                                      " na Sklep internetowy jest gotowe.')]"
 

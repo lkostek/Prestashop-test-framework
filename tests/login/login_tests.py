@@ -3,7 +3,7 @@ import unittest
 import pytest
 
 from pages.login.login_page import LoginPage
-from utilities.test_case_status import TestCaseStatus
+from utilities.test_case_status import ProgressOfTestingStatus
 
 
 @pytest.mark.usefixtures("setUpBeforeTest")
@@ -12,7 +12,7 @@ class LoginTests(unittest.TestCase):
     @pytest.fixture(autouse=True)
     def classSetup(self, setUpBeforeTest):
         self.login_page = LoginPage(self.driver)
-        self.test_status = TestCaseStatus(self.driver)
+        self.test_status = ProgressOfTestingStatus(self.driver)
 
     @pytest.mark.run(order=1)
     def test_invalidLogin(self):

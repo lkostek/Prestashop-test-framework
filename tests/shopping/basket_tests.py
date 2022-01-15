@@ -4,7 +4,7 @@ import pytest
 
 from pages.shopping.basket_page import BasketPage
 from utilities.additional_functions import AdditionalFunctions
-from utilities.test_case_status import TestCaseStatus
+from utilities.test_case_status import ProgressOfTestingStatus
 
 
 @pytest.mark.usefixtures("setUpBeforeTest")
@@ -13,7 +13,7 @@ class BasketTests(unittest.TestCase):
     @pytest.fixture(autouse=True)
     def classSetup(self, setUpBeforeTest):
         self.basket_page = BasketPage(self.driver)
-        self.test_status = TestCaseStatus(self.driver)
+        self.test_status = ProgressOfTestingStatus(self.driver)
         self.additional_functions = AdditionalFunctions()
 
     @pytest.mark.run(order=1)

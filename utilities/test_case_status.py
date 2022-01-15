@@ -4,7 +4,7 @@ from base.core import Core
 from utilities.logger import loggerInstance
 
 
-class TestCaseStatus(Core):
+class ProgressOfTestingStatus(Core):
     """
     Klasa, ktora zbiera wyniki cząstkowe wykonywanego testcase i wypluwająca
     wynik całego testcase biorąc pod uwagę wszystkie resulty.
@@ -13,7 +13,7 @@ class TestCaseStatus(Core):
     log = loggerInstance(console_level=logging.DEBUG)
 
     def __init__(self, driver):
-        super(TestCaseStatus, self).__init__(driver)
+        super(ProgressOfTestingStatus, self).__init__(driver)
         self.test_result_list = []
 
     def setTestResult(self, test_result, result_message):
