@@ -147,7 +147,7 @@ class Core:
     def isElementNotPresent(self, locator, type_of_locator="xpath"):
         """
         Zwraca bool czy elementu nie ma na
-        stronie. Odwrotnosc isElementPresent.
+        stronie.
         """
 
         result = self.isElementPresent(locator, type_of_locator="xpath")
@@ -158,6 +158,7 @@ class Core:
 
     def isElementPresent(self, locator, type_of_locator="xpath"):
         """Zwraca bool czy element istnieje na stronie."""
+
         is_present = False
         try:
             element = self.getElement(type_of_locator, locator)
@@ -376,7 +377,7 @@ class Core:
 
     def refreshCurrentPage(self):
         """
-        Refreshing the current page.
+        Odswieza aktualna strone na ktorej webdriver sie znajduje.
         """
 
         self.log.info("Refreshing current page.")

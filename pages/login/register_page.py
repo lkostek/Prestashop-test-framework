@@ -150,7 +150,8 @@ class RegisterPage(Core):
 
     def checkRegisterTitle(self, title):
         """
-        Zweryfikuj czy podany title is equals to current page title.
+        Weryfikuje czy podany title jest taki sam jak tytul strony
+        na ktorej aktualnie znajduje sie webdriver.
         """
 
         result = self.compareCurentTitlePageWithProvidedTitle(title)

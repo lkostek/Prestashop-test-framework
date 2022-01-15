@@ -6,6 +6,7 @@ from pages.shopping.purchase_page import PurchasePage
 from utilities.additional_functions import AdditionalFunctions
 from utilities.test_case_status import ProgressOfTestingStatus
 
+
 @pytest.mark.usefixtures("setUpBeforeTest")
 class PurchaseTests(unittest.TestCase):
 
